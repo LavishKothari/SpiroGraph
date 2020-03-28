@@ -20,12 +20,14 @@ public class MainActivity extends AppCompatActivity {
         SpiroGraphView spiroGraphView = new SpiroGraphView(this);
         linearLayout.addView(spiroGraphView);
 
-
-        Spinner spinner=findViewById(R.id.spinner);
+        Spinner spinner = findViewById(R.id.spinner);
         String[] items = new String[]{"1", "2", "three"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                items
+        );
         spinner.setAdapter(adapter);
-
 
     }
 }
