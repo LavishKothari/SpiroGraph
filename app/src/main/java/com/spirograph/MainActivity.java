@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -31,15 +32,34 @@ public class MainActivity extends AppCompatActivity {
         spiroGraphView = new SpiroGraphView(this);
         linearLayout.addView(spiroGraphView);
 
-        Spinner spinner = findViewById(R.id.spinner);
-        String[] items = new String[]{"1", "2", "three"};
+        final Spinner spinner = findViewById(R.id.spinner);
+        String[] items = new String[]{"1", "2", "3", "4"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_dropdown_item,
                 items
         );
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(
+                    AdapterView<?> parentView,
+                    View selectedItemView,
+                    int position,
+                    long id
+            ) {
+                System.out.println(position);
+                // your code here
+                spiroGraphView.setNumberOfLines(position + 1);
+                spiroGraphView.restartButtonClicked();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
     }
 
     public void stopButtonOnClick(View view) {

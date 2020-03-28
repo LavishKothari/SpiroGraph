@@ -24,10 +24,16 @@ public class SpiroGraphView extends View {
 
     private List<Point> points = new ArrayList<>();
 
+    private int numberOfLines = 2;
+
     private boolean stop = false;
 
     public void stopButtonClicked() {
         stop = true;
+    }
+
+    public void setNumberOfLines(int n) {
+        this.numberOfLines = n;
     }
 
     public void resumeButtonClicked() {
@@ -100,8 +106,10 @@ public class SpiroGraphView extends View {
         lines.add(line3);
         lines.add(line4);
 
+        lines = lines.subList(0, numberOfLines);
+
         angles = new ArrayList<>();
-        for (int i = 0; i < lines.size(); i++) {
+        for (int i = 0; i < numberOfLines; i++) {
             angles.add(0.0);
         }
 
@@ -115,8 +123,8 @@ public class SpiroGraphView extends View {
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         Point newPoint = new Point(
-                lines.get(lines.size() - 1).getStopX(),
-                lines.get(lines.size() - 1).getStopY()
+                lines.get(numberOfLines - 1).getStopX(),
+                lines.get(numberOfLines - 1).getStopY()
         );
         points.add(newPoint);
 
@@ -127,7 +135,7 @@ public class SpiroGraphView extends View {
             path.lineTo(points.get(i).getX(), points.get(i).getY());
         }
         canvas.drawPath(path, paint);
-        for (int i = 0; i < lines.size(); i++) {
+        for (int i = 0; i < numberOfLines; i++) {
             lines.get(i).draw(paint, canvas);
         }
 
@@ -138,12 +146,12 @@ public class SpiroGraphView extends View {
             return;
         }
 
-        for (int i = 0; i < angles.size(); i++) {
+        for (int i = 0; i < numberOfLines; i++) {
             angles.set(i, angles.get(i) + angleIncrements.get(i));
         }
 
         List<Line> newLines = new ArrayList<>();
-        for (int i = 0; i < lines.size(); i++) {
+        for (int i = 0; i < numberOfLines; i++) {
             if (i == 0) {
                 newLines.add(lines.get(i).getRotatedLine(angles.get(i)));
             } else {
