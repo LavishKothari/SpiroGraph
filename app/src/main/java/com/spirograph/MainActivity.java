@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     Button stopButton;
     Button resumeButton;
     Button restartButton;
+    Button submitButton;
     LinearLayout dynamicEditTexts;
     SpiroGraphView spiroGraphView;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         stopButton = findViewById(R.id.stopButton);
         resumeButton = findViewById(R.id.resumeButton);
         restartButton = findViewById(R.id.restartButton);
+        submitButton = findViewById(R.id.submitButton);
 
         dynamicEditTexts = findViewById(R.id.dynamicEditTexts);
 
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    public void submitButtonOnClick(View view) {
+        spiroGraphView.restartButtonClicked();
+    }
 
     public void stopButtonOnClick(View view) {
         spiroGraphView.stopButtonClicked();

@@ -19,6 +19,7 @@ import java.util.List;
 public class SpiroGraphView extends View {
     private Paint paint;
     private List<Line> lines = new ArrayList<>();
+    private List<Integer> lengths = new ArrayList<>();
     private List<Double> angles = new ArrayList<>();
     private List<Double> angleIncrements = new ArrayList<>();
 
@@ -55,7 +56,7 @@ public class SpiroGraphView extends View {
         paint.setAntiAlias(true);
 
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(Color.BLUE);
+        paint.setColor(Color.RED);
         paint.setStrokeWidth(2);
 
         initializeLines();
@@ -72,34 +73,41 @@ public class SpiroGraphView extends View {
 
         int screenWidth = displayMetrics.widthPixels;
         int screenHeight = displayMetrics.heightPixels;
+
+        lengths = new ArrayList<>();
+        lengths.add(200);
+        lengths.add(100);
+        lengths.add(50);
+        lengths.add(70);
+
         lines = new ArrayList<>();
         Line line1 = new Line(
                 screenWidth / 2,
                 screenHeight / 2,
-                screenWidth / 2 + 200,
+                screenWidth / 2 + lengths.get(0),
                 screenHeight / 2,
-                Color.RED
+                Color.CYAN
         );
         Line line2 = new Line(
-                screenWidth / 2 + 200,
+                screenWidth / 2 + lengths.get(0),
                 screenHeight / 2,
-                screenWidth / 2 + 300,
+                screenWidth / 2 + lengths.get(0) + lengths.get(1),
                 screenHeight / 2,
                 Color.GREEN
         );
         Line line3 = new Line(
-                screenWidth / 2 + 300,
+                screenWidth / 2 + lengths.get(0) + lengths.get(1),
                 screenHeight / 2,
-                screenWidth / 2 + 350,
-                screenHeight / 2,
-                Color.YELLOW
-        );
-        Line line4 = new Line(
-                screenWidth / 2 + 350,
-                screenHeight / 2,
-                screenWidth / 2 + 420,
+                screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2),
                 screenHeight / 2,
                 Color.BLUE
+        );
+        Line line4 = new Line(
+                screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2),
+                screenHeight / 2,
+                screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2) + lengths.get(3),
+                screenHeight / 2,
+                Color.MAGENTA
         );
         lines.add(line1);
         lines.add(line2);

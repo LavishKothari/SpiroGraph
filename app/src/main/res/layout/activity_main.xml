@@ -50,15 +50,22 @@
         android:layout_below="@+id/buttonsLayout"
         android:orientation="horizontal" />
 
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dynamicEditTexts"
+        android:onClick="submitButtonOnClick"
+        android:text="Submit" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/dynamicEditTexts"
+        android:layout_below="@+id/submitButton"
         android:orientation="horizontal"
         tools:context="com.spirograph.MainActivity"></LinearLayout>
-
 </LinearLayout>
 
 
