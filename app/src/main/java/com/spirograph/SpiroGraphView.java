@@ -17,13 +17,30 @@ import java.util.List;
 
 
 public class SpiroGraphView extends View {
-    Paint paint;
-    long startTime;
-    List<Line> lines = new ArrayList<>();
-    List<Double> angles = new ArrayList<>();
-    List<Double> angleIncrements = new ArrayList<>();
+    private Paint paint;
+    private List<Line> lines = new ArrayList<>();
+    private List<Double> angles = new ArrayList<>();
+    private List<Double> angleIncrements = new ArrayList<>();
 
-    List<Point> points = new ArrayList<>();
+    private List<Point> points = new ArrayList<>();
+
+    private boolean stop = false;
+
+    public void stopButtonClicked() {
+        stop = true;
+    }
+
+    public void resumeButtonClicked() {
+        stop = false;
+        invalidate();
+    }
+
+    public void restartButtonClicked() {
+        points = new ArrayList<>();
+        initializeLines();
+        stop = false;
+        invalidate();
+    }
 
     public SpiroGraphView(Context context) {
         super(context);
@@ -33,17 +50,23 @@ public class SpiroGraphView extends View {
 
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(Color.BLUE);
-        paint.setStrokeWidth(5);
-        this.startTime = System.currentTimeMillis();
+        paint.setStrokeWidth(2);
+
+        initializeLines();
+
+        this.postInvalidate();
+    }
+
+    private void initializeLines() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
 
         ((Activity) getContext()).getWindowManager()
                 .getDefaultDisplay()
                 .getMetrics(displayMetrics);
 
-
         int screenWidth = displayMetrics.widthPixels;
         int screenHeight = displayMetrics.heightPixels;
+        lines = new ArrayList<>();
         Line line1 = new Line(
                 screenWidth / 2,
                 screenHeight / 2,
@@ -54,42 +77,48 @@ public class SpiroGraphView extends View {
         Line line2 = new Line(
                 screenWidth / 2 + 200,
                 screenHeight / 2,
-                screenWidth / 2 + 350,
+                screenWidth / 2 + 300,
                 screenHeight / 2,
-                Color.BLUE
+                Color.GREEN
         );
         Line line3 = new Line(
+                screenWidth / 2 + 300,
+                screenHeight / 2,
                 screenWidth / 2 + 350,
                 screenHeight / 2,
-                screenWidth / 2 + 450,
+                Color.YELLOW
+        );
+        Line line4 = new Line(
+                screenWidth / 2 + 350,
+                screenHeight / 2,
+                screenWidth / 2 + 420,
                 screenHeight / 2,
                 Color.BLUE
         );
         lines.add(line1);
         lines.add(line2);
         lines.add(line3);
+        lines.add(line4);
 
-        angles.add(0.0);
-        angles.add(0.0);
-        angles.add(0.0);
+        angles = new ArrayList<>();
+        for (int i = 0; i < lines.size(); i++) {
+            angles.add(0.0);
+        }
 
         angleIncrements.add(0.01);
         angleIncrements.add(0.08);
         angleIncrements.add(0.2);
-
-        this.postInvalidate();
+        angleIncrements.add(0.1);
     }
 
     @Override
     protected void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-
-        points.add(
-                new Point(
-                        lines.get(lines.size() - 1).getStopX(),
-                        lines.get(lines.size() - 1).getStopY()
-                )
+        Point newPoint = new Point(
+                lines.get(lines.size() - 1).getStopX(),
+                lines.get(lines.size() - 1).getStopY()
         );
+        points.add(newPoint);
 
         Path path = new Path();
         path.moveTo(points.get(0).getX(), points.get(0).getY());
@@ -98,6 +127,16 @@ public class SpiroGraphView extends View {
             path.lineTo(points.get(i).getX(), points.get(i).getY());
         }
         canvas.drawPath(path, paint);
+        for (int i = 0; i < lines.size(); i++) {
+            lines.get(i).draw(paint, canvas);
+        }
+
+        /*
+            stop only after drawing
+         */
+        if (stop) {
+            return;
+        }
 
         for (int i = 0; i < angles.size(); i++) {
             angles.set(i, angles.get(i) + angleIncrements.get(i));
