@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.DisplayMetrics;
 import android.view.View;
 
@@ -90,9 +91,13 @@ public class SpiroGraphView extends View {
                 )
         );
 
-        for (int i = 0; i < points.size(); i++) {
-            points.get(i).drawPoint(paint, canvas);
+        Path path = new Path();
+        path.moveTo(points.get(0).getX(), points.get(0).getY());
+        for (int i = 1; i < points.size(); i++) {
+//            points.get(i).drawPoint(paint, canvas);
+            path.lineTo(points.get(i).getX(), points.get(i).getY());
         }
+        canvas.drawPath(path, paint);
 
         for (int i = 0; i < angles.size(); i++) {
             angles.set(i, angles.get(i) + angleIncrements.get(i));
