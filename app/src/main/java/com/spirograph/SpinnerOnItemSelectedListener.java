@@ -27,10 +27,15 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         dynamicEditTextsLayout.removeAllViews();
         int n = position + 1;
-        spiroGraphView.setNumberOfLines(n);
+        spiroGraphView.reset(n);
         numberOfLines = 0;
+        EditTextCollection.clear();
         for (int i = 0; i < n; i++) {
-            addEditText();
+            numberOfLines = EditTextCollection.addEditText(
+                    context,
+                    numberOfLines,
+                    dynamicEditTextsLayout
+            );
         }
         spiroGraphView.restartButtonClicked();
     }
@@ -40,15 +45,4 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
 
     }
 
-    private void addEditText() {
-        EditText et = new EditText(context);
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        et.setLayoutParams(p);
-        et.setId(numberOfLines + 1);
-        dynamicEditTextsLayout.addView(et);
-        numberOfLines++;
-    }
 }

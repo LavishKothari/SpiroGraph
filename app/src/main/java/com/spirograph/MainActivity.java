@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void submitButtonOnClick(View view) {
+        try {
+            List<Integer> lengths = EditTextCollection.getLengths();
+            spiroGraphView.setLengths(lengths);
+        } catch (NumberFormatException ex) {
+        }
+
         spiroGraphView.restartButtonClicked();
     }
 

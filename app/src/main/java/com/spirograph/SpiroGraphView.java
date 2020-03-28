@@ -13,13 +13,14 @@ import com.spirograph.shapes.Line;
 import com.spirograph.shapes.Point;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class SpiroGraphView extends View {
     private Paint paint;
     private List<Line> lines = new ArrayList<>();
-    private List<Integer> lengths = new ArrayList<>();
+    private List<Integer> lengths = Arrays.asList(200, 100, 50, 70);
     private List<Double> angles = new ArrayList<>();
     private List<Double> angleIncrements = new ArrayList<>();
 
@@ -33,8 +34,26 @@ public class SpiroGraphView extends View {
         stop = true;
     }
 
-    public void setNumberOfLines(int n) {
+    public void reset(int n) {
+        this.setNumberOfLines(n);
+
+        angles = new ArrayList<>();
+        for (int i = 0; i < numberOfLines; i++) {
+            angles.add(0.0);
+        }
+
+        angleIncrements.add(0.01);
+        angleIncrements.add(0.08);
+        angleIncrements.add(0.2);
+        angleIncrements.add(0.1);
+    }
+
+    private void setNumberOfLines(int n) {
         this.numberOfLines = n;
+    }
+
+    public void setLengths(List<Integer> list) {
+        this.lengths = list;
     }
 
     public void resumeButtonClicked() {
@@ -74,41 +93,45 @@ public class SpiroGraphView extends View {
         int screenWidth = displayMetrics.widthPixels;
         int screenHeight = displayMetrics.heightPixels;
 
-        lengths = new ArrayList<>();
-        lengths.add(200);
-        lengths.add(100);
-        lengths.add(50);
-        lengths.add(70);
-
         lines = new ArrayList<>();
-        Line line1 = new Line(
-                screenWidth / 2,
-                screenHeight / 2,
-                screenWidth / 2 + lengths.get(0),
-                screenHeight / 2,
-                Color.CYAN
-        );
-        Line line2 = new Line(
-                screenWidth / 2 + lengths.get(0),
-                screenHeight / 2,
-                screenWidth / 2 + lengths.get(0) + lengths.get(1),
-                screenHeight / 2,
-                Color.GREEN
-        );
-        Line line3 = new Line(
-                screenWidth / 2 + lengths.get(0) + lengths.get(1),
-                screenHeight / 2,
-                screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2),
-                screenHeight / 2,
-                Color.BLUE
-        );
-        Line line4 = new Line(
-                screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2),
-                screenHeight / 2,
-                screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2) + lengths.get(3),
-                screenHeight / 2,
-                Color.MAGENTA
-        );
+        Line line1, line2, line3, line4;
+        line1 = line2 = line3 = line4 = null;
+        if (numberOfLines >= 1) {
+            line1 = new Line(
+                    screenWidth / 2,
+                    screenHeight / 2,
+                    screenWidth / 2 + lengths.get(0),
+                    screenHeight / 2,
+                    Color.CYAN
+            );
+        }
+        if (numberOfLines >= 2) {
+            line2 = new Line(
+                    screenWidth / 2 + lengths.get(0),
+                    screenHeight / 2,
+                    screenWidth / 2 + lengths.get(0) + lengths.get(1),
+                    screenHeight / 2,
+                    Color.GREEN
+            );
+        }
+        if (numberOfLines >= 3) {
+            line3 = new Line(
+                    screenWidth / 2 + lengths.get(0) + lengths.get(1),
+                    screenHeight / 2,
+                    screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2),
+                    screenHeight / 2,
+                    Color.BLUE
+            );
+        }
+        if (numberOfLines >= 4) {
+            line4 = new Line(
+                    screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2),
+                    screenHeight / 2,
+                    screenWidth / 2 + lengths.get(0) + lengths.get(1) + lengths.get(2) + lengths.get(3),
+                    screenHeight / 2,
+                    Color.MAGENTA
+            );
+        }
         lines.add(line1);
         lines.add(line2);
         lines.add(line3);
