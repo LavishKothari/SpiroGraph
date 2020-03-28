@@ -43,15 +43,21 @@
             android:spinnerMode="dropdown" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/dynamicEditTexts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonsLayout"
+        android:orientation="horizontal" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/dynamicEditTexts"
         android:orientation="horizontal"
-        tools:context="com.spirograph.MainActivity"
-        android:layout_below="@+id/buttonsLayout"
-        ></LinearLayout>
+        tools:context="com.spirograph.MainActivity"></LinearLayout>
 
 </LinearLayout>
 

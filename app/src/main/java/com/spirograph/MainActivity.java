@@ -1,14 +1,13 @@
 package com.spirograph;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     Button stopButton;
     Button resumeButton;
     Button restartButton;
-
+    LinearLayout dynamicEditTexts;
     SpiroGraphView spiroGraphView;
 
     @Override
@@ -28,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
         resumeButton = findViewById(R.id.resumeButton);
         restartButton = findViewById(R.id.restartButton);
 
+        dynamicEditTexts = findViewById(R.id.dynamicEditTexts);
+
         linearLayout = findViewById(R.id.linearLayout);
+
         spiroGraphView = new SpiroGraphView(this);
         linearLayout.addView(spiroGraphView);
 
@@ -40,27 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 items
         );
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(
-                    AdapterView<?> parentView,
-                    View selectedItemView,
-                    int position,
-                    long id
-            ) {
-                System.out.println(position);
-                // your code here
-                spiroGraphView.setNumberOfLines(position + 1);
-                spiroGraphView.restartButtonClicked();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
-        });
+        spinner.setOnItemSelectedListener(
+                new SpinnerOnItemSelectedListener(spiroGraphView, this, dynamicEditTexts)
+        );
     }
+
 
     public void stopButtonOnClick(View view) {
         spiroGraphView.stopButtonClicked();
