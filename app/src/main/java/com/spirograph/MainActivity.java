@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 items
         );
         spinner.setAdapter(adapter);
+        spinner.setSelection(1);
         spinner.setOnItemSelectedListener(
                 new SpinnerOnItemSelectedListener(
                         spiroGraphView,

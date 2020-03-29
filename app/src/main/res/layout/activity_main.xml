@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dynamicEditTexts"
         android:onClick="submitButtonOnClick"
-        android:text="Submit" />
+        android:text="Go" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

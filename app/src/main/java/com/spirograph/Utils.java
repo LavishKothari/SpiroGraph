@@ -19,6 +19,6 @@ public class Utils {
     }
 
     public int getScreenHeight() {
-        return displayMetrics.heightPixels;
+        return displayMetrics.heightPixels / 2;
     }
 }
