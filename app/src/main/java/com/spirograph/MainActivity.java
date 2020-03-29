@@ -1,5 +1,6 @@
 package com.spirograph;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setTitle("  " + "SpiroGraph");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher_round);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         stopButton = findViewById(R.id.stopButton);
         resumeButton = findViewById(R.id.resumeButton);

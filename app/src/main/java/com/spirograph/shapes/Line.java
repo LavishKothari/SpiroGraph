@@ -44,8 +44,8 @@ public class Line {
     }
 
     public static List<Line> getLines(int screenWidth, int screenHeight, int numberOfLines) {
-        List<Integer> lengths = Arrays.asList(180, 180, 50, 70).subList(0, numberOfLines);
-        List<Float> angleIncrements = Arrays.asList(0.01f, 0.08f, 0.2f, 0.1f);
+        List<Integer> lengths = Arrays.asList(200, 200, 50, 70).subList(0, numberOfLines);
+        List<Float> angleIncrements = Arrays.asList(0.05f, 0.12125f, 0.2f, 0.1f);
         return getLines(screenWidth, screenHeight, numberOfLines, lengths, angleIncrements);
     }
 
