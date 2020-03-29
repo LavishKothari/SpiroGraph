@@ -10,9 +10,9 @@ import java.util.List;
 
 public class EditTextCollection {
 
-    public static List<EditText> editTextList = new ArrayList<>();
+    public List<EditText> editTextList = new ArrayList<>();
 
-    public static int addEditText(
+    public int addEditText(
             Context context,
             int numberOfLines,
             LinearLayout dynamicEditTextsLayout
@@ -30,7 +30,7 @@ public class EditTextCollection {
         return numberOfLines;
     }
 
-    public static List<Integer> getLengths() {
+    public List<Integer> getLengths() {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < editTextList.size(); i++) {
             String text = editTextList.get(i).getText().toString();
@@ -40,8 +40,4 @@ public class EditTextCollection {
         return result;
     }
 
-
-    public static void clear() {
-        editTextList = new ArrayList<>();
-    }
 }

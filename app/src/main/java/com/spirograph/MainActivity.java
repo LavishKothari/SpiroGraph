@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout dynamicEditTexts;
     SpiroGraphView spiroGraphView;
 
+    EditTextCollection lengthsEditText = new EditTextCollection();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +51,18 @@ public class MainActivity extends AppCompatActivity {
         );
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(
-                new SpinnerOnItemSelectedListener(spiroGraphView, this, dynamicEditTexts)
+                new SpinnerOnItemSelectedListener(
+                        spiroGraphView,
+                        this,
+                        dynamicEditTexts,
+                        lengthsEditText
+                )
         );
     }
 
     public void submitButtonOnClick(View view) {
         try {
-            List<Integer> lengths = EditTextCollection.getLengths();
+            List<Integer> lengths = lengthsEditText.getLengths();
             spiroGraphView.reset(lengths);
         } catch (NumberFormatException ex) {
         }
@@ -71,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void restartButtonOnClick(View view) {
         try {
-            List<Integer> lengths = EditTextCollection.getLengths();
+            List<Integer> lengths = lengthsEditText.getLengths();
             spiroGraphView.reset(lengths);
         } catch (NumberFormatException ex) {
             spiroGraphView.reset(Line.getNumberOfLines());

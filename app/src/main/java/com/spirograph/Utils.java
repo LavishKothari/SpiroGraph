@@ -5,11 +5,9 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 public class Utils {
-    private Context context;
     private DisplayMetrics displayMetrics = new DisplayMetrics();
 
     public Utils(Context context) {
-        this.context = context;
         ((Activity) context).getWindowManager()
                 .getDefaultDisplay()
                 .getMetrics(displayMetrics);
