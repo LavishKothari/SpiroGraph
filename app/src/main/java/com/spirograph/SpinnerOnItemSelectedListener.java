@@ -51,7 +51,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         dynamicEditTextsLayout.addView(parentLinearLayout);
 
         LinearLayout lengthsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
-        TextView lengthsTextView = addTextView("  Lengths (between 50 to 150): ", lengthsLinearLayout);
+        addTextView("  Lengths (between 50 to 150): ", lengthsLinearLayout);
         for (int i = 0; i < n; i++) {
             numberOfLines = lengthsEditTextCollection.addEditText(
                     context,
@@ -61,7 +61,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         }
 
         LinearLayout speedsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
-        TextView speedsTextView = addTextView(
+        addTextView(
                 "  Speeds (between 0 to 100): ",
                 speedsLinearLayout
         );
