@@ -1,7 +1,9 @@
 package com.spirograph;
 
 import android.content.Context;
+import android.text.InputFilter;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -15,15 +17,26 @@ public class EditTextCollection {
     public int addEditText(
             Context context,
             int numberOfLines,
-            LinearLayout dynamicEditTextsLayout
+            LinearLayout dynamicEditTextsLayout,
+            int maxAllowableDigits,
+            int width
     ) {
         EditText editText = new EditText(context);
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
+        p.setMargins(0, 0, 0, 0);
         editText.setLayoutParams(p);
         editText.setId(numberOfLines + 1);
+        editText.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(maxAllowableDigits);
+        editText.setFilters(filterArray);
+
+        editText.setMinWidth(width);
+        editText.setMaxWidth(width);
         dynamicEditTextsLayout.addView(editText);
         editTextList.add(editText);
         numberOfLines++;
@@ -33,7 +46,6 @@ public class EditTextCollection {
     public List<Integer> getLengths() {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < editTextList.size(); i++) {
-            System.out.println("yahoo " + editTextList.get(i).getText().toString());
             result.add(Integer.parseInt(editTextList.get(i).getText().toString()));
         }
         return result;

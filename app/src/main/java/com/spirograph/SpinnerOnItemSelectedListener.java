@@ -51,25 +51,29 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         dynamicEditTextsLayout.addView(parentLinearLayout);
 
         LinearLayout lengthsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
-        addTextView("  Lengths (between 50 to 150): ", lengthsLinearLayout);
+        addTextView("  Lengths (50 to 150): ", lengthsLinearLayout);
         for (int i = 0; i < n; i++) {
             numberOfLines = lengthsEditTextCollection.addEditText(
                     context,
                     numberOfLines,
-                    lengthsLinearLayout
+                    lengthsLinearLayout,
+                    3,
+                    120
             );
         }
 
         LinearLayout speedsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
         addTextView(
-                "  Speeds (between 0 to 100): ",
+                "  Speeds (0 to 99): ",
                 speedsLinearLayout
         );
         for (int i = 0; i < n; i++) {
             angleIncrementsEditTextCollection.addEditText(
                     context,
                     numberOfLines,
-                    speedsLinearLayout
+                    speedsLinearLayout,
+                    2,
+                    80
             );
         }
 
@@ -86,11 +90,14 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
 
     private LinearLayout getLinearLayout(int orientation) {
         LinearLayout linearLayout = new LinearLayout(context);
-        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
+        );
+        layoutParams.setMargins(0, 0, 0, 0);
+        linearLayout.setLayoutParams(layoutParams);
         linearLayout.setOrientation(orientation);
+
         return linearLayout;
     }
 
@@ -109,6 +116,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         ));
         textView.setText(text);
         linearLayout.addView(textView);
+        textView.setTextColor(Color.BLACK);
         return textView;
     }
 
