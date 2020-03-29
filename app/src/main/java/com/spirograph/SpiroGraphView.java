@@ -37,7 +37,7 @@ public class SpiroGraphView extends View {
         paint.setColor(Color.RED);
         paint.setStrokeWidth(2);
 
-        reset(2);
+        reset(1);
 
         this.postInvalidate();
     }
@@ -49,14 +49,15 @@ public class SpiroGraphView extends View {
         invalidate();
     }
 
-    public void reset(List<Integer> lengths) {
+    public void reset(List<Integer> lengths, List<Float> angleIncrements) {
         points = new ArrayList<>();
         stop = false;
         lines = Line.getLines(
                 utils.getScreenWidth(),
                 utils.getScreenHeight(),
                 lengths.size(),
-                lengths
+                lengths,
+                angleIncrements
         );
         invalidate();
     }

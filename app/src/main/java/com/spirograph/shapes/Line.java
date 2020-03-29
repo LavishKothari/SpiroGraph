@@ -17,7 +17,7 @@ public class Line {
 
     private int color;
 
-    private static int numberOfLines = 2;
+    private static int numberOfLines = 1;
 
     public static int getNumberOfLines() {
         return numberOfLines;
@@ -45,28 +45,30 @@ public class Line {
 
     public static List<Line> getLines(int screenWidth, int screenHeight, int numberOfLines) {
         List<Integer> lengths = Arrays.asList(180, 180, 50, 70).subList(0, numberOfLines);
-        return getLines(screenWidth, screenHeight, numberOfLines, lengths);
+        List<Float> angleIncrements = Arrays.asList(0.01f, 0.08f, 0.2f, 0.1f);
+        return getLines(screenWidth, screenHeight, numberOfLines, lengths, angleIncrements);
     }
 
     public static List<Line> getLines(
             int screenWidth,
             int screenHeight,
             int numberOfLines,
-            List<Integer> lengths
+            List<Integer> lengths,
+            List<Float> angleIncrements
     ) {
         Line.numberOfLines = numberOfLines;
 
         List<Integer> color = Arrays.asList(Color.CYAN, Color.GREEN, Color.BLUE, Color.MAGENTA);
-        List<Float> angleIncrements = Arrays.asList(0.01f, 0.08f, 0.2f, 0.1f);
+
         List<Line> lines = new ArrayList<>();
         int currentDistance = 0;
         for (int i = 0; i < numberOfLines; i++) {
             lines.add(
                     new Line(
-                            screenWidth / 2 + currentDistance,
-                            screenHeight / 2,
-                            screenWidth / 2 + currentDistance + lengths.get(i),
-                            screenHeight / 2,
+                            screenWidth / 2.0f + currentDistance,
+                            screenHeight / 2.0f,
+                            screenWidth / 2.0f + currentDistance + lengths.get(i),
+                            screenHeight / 2.0f,
                             color.get(i),
                             lengths.get(i),
                             0.0f,
@@ -75,8 +77,7 @@ public class Line {
             );
             currentDistance += lengths.get(i);
         }
-
-        return lines.subList(0, numberOfLines);
+        return lines;
     }
 
     public float getStartX() {

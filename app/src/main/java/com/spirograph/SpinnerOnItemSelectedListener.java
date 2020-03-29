@@ -18,22 +18,30 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
     private LinearLayout dynamicEditTextsLayout;
 
     private EditTextCollection lengthsEditTextCollection;
+    private EditTextCollection angleIncrementsEditTextCollection;
 
     public SpinnerOnItemSelectedListener(
             SpiroGraphView spiroGraphView,
             Context context,
             LinearLayout dynamicEditTextsLayout,
-            EditTextCollection lengthsEditTextCollection
+            EditTextCollection lengthsEditTextCollection,
+            EditTextCollection angleIncrementsEditTextCollection
     ) {
         this.spiroGraphView = spiroGraphView;
         this.context = context;
         this.dynamicEditTextsLayout = dynamicEditTextsLayout;
         this.lengthsEditTextCollection = lengthsEditTextCollection;
+        this.angleIncrementsEditTextCollection = angleIncrementsEditTextCollection;
+
+        this.lengthsEditTextCollection.clear();
+        this.angleIncrementsEditTextCollection.clear();
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         dynamicEditTextsLayout.removeAllViews();
+        this.lengthsEditTextCollection.clear();
+        this.angleIncrementsEditTextCollection.clear();
         int n = position + 1;
         spiroGraphView.reset(n);
         numberOfLines = 0;
@@ -53,13 +61,12 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         }
 
         LinearLayout speedsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
-        EditTextCollection editTextCollectionForSpeeds = new EditTextCollection();
         TextView speedsTextView = addTextView(
                 "  Speeds (between 0 to 100): ",
                 speedsLinearLayout
         );
         for (int i = 0; i < n; i++) {
-            editTextCollectionForSpeeds.addEditText(
+            angleIncrementsEditTextCollection.addEditText(
                     context,
                     numberOfLines,
                     speedsLinearLayout

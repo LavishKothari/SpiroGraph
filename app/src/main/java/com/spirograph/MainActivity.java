@@ -7,8 +7,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.spirograph.shapes.Line;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +26,13 @@ public class MainActivity extends AppCompatActivity {
     SpiroGraphView spiroGraphView;
 
     EditTextCollection lengthsEditText = new EditTextCollection();
+    EditTextCollection angleIncrementsEditTexts = new EditTextCollection();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        System.out.println("on create called");
 
         stopButton = findViewById(R.id.stopButton);
         resumeButton = findViewById(R.id.resumeButton);
@@ -55,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
                         spiroGraphView,
                         this,
                         dynamicEditTexts,
-                        lengthsEditText
+                        lengthsEditText,
+                        angleIncrementsEditTexts
                 )
         );
     }
@@ -63,8 +68,19 @@ public class MainActivity extends AppCompatActivity {
     public void submitButtonOnClick(View view) {
         try {
             List<Integer> lengths = lengthsEditText.getLengths();
-            spiroGraphView.reset(lengths);
+            List<Integer> intAngleIncrements = angleIncrementsEditTexts.getLengths();
+            List<Float> angleIncrements = new ArrayList<>();
+            for (int i = 0; i < intAngleIncrements.size(); i++) {
+                angleIncrements.add(intAngleIncrements.get(i) / 800.0f);
+            }
+            spiroGraphView.reset(lengths, angleIncrements);
         } catch (NumberFormatException ex) {
+            Snackbar
+                    .make(
+                            linearLayout,
+                            "Enter valid numbers",
+                            Snackbar.LENGTH_LONG
+                    ).show();
         }
     }
 
@@ -79,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
     public void restartButtonOnClick(View view) {
         try {
             List<Integer> lengths = lengthsEditText.getLengths();
-            spiroGraphView.reset(lengths);
+            List<Integer> intAngleIncrements = angleIncrementsEditTexts.getLengths();
+            List<Float> angleIncrements = new ArrayList<>();
+            for (int i = 0; i < intAngleIncrements.size(); i++) {
+                angleIncrements.add(intAngleIncrements.get(i) / 800.0f);
+            }
+            spiroGraphView.reset(lengths, angleIncrements);
         } catch (NumberFormatException ex) {
             spiroGraphView.reset(Line.getNumberOfLines());
         }

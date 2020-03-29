@@ -33,11 +33,14 @@ public class EditTextCollection {
     public List<Integer> getLengths() {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < editTextList.size(); i++) {
-            String text = editTextList.get(i).getText().toString();
-
+            System.out.println("yahoo " + editTextList.get(i).getText().toString());
             result.add(Integer.parseInt(editTextList.get(i).getText().toString()));
         }
         return result;
+    }
+
+    public void clear() {
+        editTextList = new ArrayList<>();
     }
 
 }
