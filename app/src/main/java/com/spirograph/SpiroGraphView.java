@@ -86,15 +86,15 @@ public class SpiroGraphView extends View {
             path.lineTo(points.get(i).getX(), points.get(i).getY());
         }
         canvas.drawPath(path, paint);
-        for (int i = 0; i < Line.getNumberOfLines(); i++) {
-            lines.get(i).draw(paint, canvas);
-        }
-
         /*
-            stop only after drawing
+            stop only after drawing all the points
          */
         if (stop) {
             return;
+        }
+
+        for (int i = 0; i < Line.getNumberOfLines(); i++) {
+            lines.get(i).draw(paint, canvas);
         }
 
         List<Line> newLines = new ArrayList<>();

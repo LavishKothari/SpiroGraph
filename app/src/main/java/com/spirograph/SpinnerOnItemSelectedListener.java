@@ -2,6 +2,7 @@ package com.spirograph;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -117,6 +118,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         textView.setText(text);
         linearLayout.addView(textView);
         textView.setTextColor(Color.BLACK);
+        textView.setTypeface(null, Typeface.BOLD);
         return textView;
     }
 
