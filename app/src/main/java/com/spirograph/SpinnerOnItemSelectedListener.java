@@ -2,9 +2,7 @@ package com.spirograph;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
@@ -37,7 +35,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
                     dynamicEditTextsLayout
             );
         }
-        spiroGraphView.restartButtonClicked();
+        spiroGraphView.reset(numberOfLines);
     }
 
     @Override

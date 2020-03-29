@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.spirograph.shapes.Line;
+
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,11 +56,9 @@ public class MainActivity extends AppCompatActivity {
     public void submitButtonOnClick(View view) {
         try {
             List<Integer> lengths = EditTextCollection.getLengths();
-            spiroGraphView.setLengths(lengths);
+            spiroGraphView.reset(lengths);
         } catch (NumberFormatException ex) {
         }
-
-        spiroGraphView.restartButtonClicked();
     }
 
     public void stopButtonOnClick(View view) {
@@ -70,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void restartButtonOnClick(View view) {
-        spiroGraphView.restartButtonClicked();
+        try {
+            List<Integer> lengths = EditTextCollection.getLengths();
+            spiroGraphView.reset(lengths);
+        } catch (NumberFormatException ex) {
+            spiroGraphView.reset(Line.getNumberOfLines());
+        }
     }
 
 }

@@ -1,19 +1,83 @@
 package com.spirograph.shapes;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Line {
     private float startX, startY, stopX, stopY;
 
+    private float length;
+    private float angle;
+    private float angleIncrement;
+
     private int color;
 
-    public Line(float startX, float startY, float stopX, float stopY, int color) {
+    private static int numberOfLines = 2;
+
+    public static int getNumberOfLines() {
+        return numberOfLines;
+    }
+
+    public Line(
+            float startX,
+            float startY,
+            float stopX,
+            float stopY,
+            int color,
+            float length,
+            float angle,
+            float angleIncrement
+    ) {
         this.startX = startX;
         this.startY = startY;
         this.stopX = stopX;
         this.stopY = stopY;
         this.color = color;
+        this.length = length;
+        this.angleIncrement = angleIncrement;
+        this.angle = angle;
+    }
+
+    public static List<Line> getLines(int screenWidth, int screenHeight, int numberOfLines) {
+        List<Integer> lengths = Arrays.asList(180, 180, 50, 70).subList(0, numberOfLines);
+        return getLines(screenWidth, screenHeight, numberOfLines, lengths);
+    }
+
+    public static List<Line> getLines(
+            int screenWidth,
+            int screenHeight,
+            int numberOfLines,
+            List<Integer> lengths
+    ) {
+        Line.numberOfLines = numberOfLines;
+
+        List<Integer> color = Arrays.asList(Color.CYAN, Color.GREEN, Color.BLUE, Color.MAGENTA);
+        List<Float> angleIncrements = Arrays.asList(0.01f, 0.08f, 0.2f, 0.1f);
+        List<Line> lines = new ArrayList<>();
+        int currentDistance = 0;
+        for (int i = 0; i < numberOfLines; i++) {
+            lines.add(
+                    new Line(
+                            screenWidth / 2 + currentDistance,
+                            screenHeight / 2,
+                            screenWidth / 2 + currentDistance + lengths.get(i),
+                            screenHeight / 2,
+                            color.get(i),
+                            lengths.get(i),
+                            0.0f,
+                            angleIncrements.get(i)
+                    )
+            );
+            currentDistance += lengths.get(i);
+        }
+
+        return lines.subList(0, numberOfLines);
     }
 
     public float getStartX() {
@@ -63,32 +127,38 @@ public class Line {
         paint.setColor(prevColor);
     }
 
-    public double getLength() {
-        return Math.sqrt(
+    private float getLength() {
+        return (float) Math.sqrt(
                 (stopX - startX) * (stopX - startX) +
                         (stopY - startY) * (stopY - startY)
         );
     }
 
-    public Line getRotatedLine(float x, float y, double angle) {
-        double length = getLength();
+    public Line getRotatedLine(float x, float y) {
+        float length = getLength();
         return new Line(
                 x,
                 y,
-                (float) (x + length * Math.cos(angle)),
-                (float) (y - length * Math.sin(angle)),
-                this.color
+                (float) (x + length * Math.cos(angle + angleIncrement)),
+                (float) (y - length * Math.sin(angle + angleIncrement)),
+                this.color,
+                length,
+                angle + angleIncrement,
+                this.angleIncrement
         );
     }
 
-    public Line getRotatedLine(double angle) {
-        double length = getLength();
+    public Line getRotatedLine() {
+        float length = getLength();
         return new Line(
                 this.startX,
                 this.startY,
-                (float) (startX + length * Math.cos(angle)),
-                (float) (startY - length * Math.sin(angle)),
-                this.color
+                (float) (startX + length * Math.cos(angle + angleIncrement)),
+                (float) (startY - length * Math.sin(angle + angleIncrement)),
+                this.color,
+                length,
+                angle + angleIncrement,
+                this.angleIncrement
         );
     }
 
