@@ -1,13 +1,21 @@
 package com.spirograph;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.spirograph.favourites.FavouritesActivity;
+import com.spirograph.favourites.FavouritesDB;
+import com.spirograph.favourites.LengthAngle;
 import com.spirograph.shapes.Line;
 
 import java.util.ArrayList;
@@ -28,9 +36,14 @@ public class MainActivity extends AppCompatActivity {
     EditTextCollection lengthsEditText = new EditTextCollection();
     EditTextCollection angleIncrementsEditTexts = new EditTextCollection();
 
+    FavouritesDB favouritesDB;
+
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        favouritesDB = new FavouritesDB(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setTitle("  " + "SpiroGraph");
@@ -70,6 +83,70 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        int id = menuItem.getItemId();
+        switch (id) {
+            case R.id.inviteFriend: {
+                try {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,
+                            "Check out this app on playstore: SPIROGRAPH"
+                    );
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                } catch (Exception e) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Message sending failed!",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+                break;
+            }
+            case R.id.help: {
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Under Development!!",
+                        Toast.LENGTH_SHORT
+                ).show();
+                break;
+            }
+            case R.id.showFavourite: {
+                Intent intent = new Intent(this, FavouritesActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.favouriteIcon: {
+                try {
+                    LengthAngle lengthAngle = new LengthAngle(
+                            lengthsEditText.getLengths(),
+                            angleIncrementsEditTexts.getLengths()
+                    );
+                    String strRepresentation = LengthAngle.getStringRepresentation(lengthAngle);
+                    boolean isFav = favouritesDB.getAllValues().contains(strRepresentation);
+                    if (isFav) {
+                        favouritesDB.remove(strRepresentation);
+                        menuItem.setIcon(R.drawable.ic_star_border_white_30dp);
+                    } else {
+                        favouritesDB.add(strRepresentation);
+                        menuItem.setIcon(R.drawable.ic_star_white_30dp);
+                    }
+                } catch (Exception e) {
+                    showEnterValidNumberToast();
+                }
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
     public void submitButtonOnClick(View view) {
         try {
             List<Integer> lengths = lengthsEditText.getLengths();
@@ -80,12 +157,7 @@ public class MainActivity extends AppCompatActivity {
             }
             spiroGraphView.reset(lengths, angleIncrements);
         } catch (NumberFormatException ex) {
-            Snackbar
-                    .make(
-                            linearLayout,
-                            "Enter valid numbers",
-                            Snackbar.LENGTH_LONG
-                    ).show();
+            showEnterValidNumberToast();
         }
     }
 
@@ -109,6 +181,20 @@ public class MainActivity extends AppCompatActivity {
         } catch (NumberFormatException ex) {
             spiroGraphView.reset(Line.getNumberOfLines());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
+    private void showEnterValidNumberToast() {
+        Toast.makeText(
+                this,
+                "Enter valid numbers",
+                Toast.LENGTH_LONG
+        ).show();
     }
 
 }
