@@ -13,8 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.spirograph.db.CoordinateDB;
 import com.spirograph.favourites.FavouritesActivity;
-import com.spirograph.favourites.FavouritesDB;
+import com.spirograph.db.FavouritesDB;
 import com.spirograph.favourites.LengthAngle;
 import com.spirograph.shapes.Line;
 
@@ -37,13 +38,17 @@ public class MainActivity extends AppCompatActivity {
     EditTextCollection angleIncrementsEditTexts = new EditTextCollection();
 
     FavouritesDB favouritesDB;
+    CoordinateDB coordinateDB;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         favouritesDB = new FavouritesDB(getApplicationContext());
+        coordinateDB = new CoordinateDB(getApplicationContext());
+
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setTitle("  " + "SpiroGraph");
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.linearLayout);
 
-        spiroGraphView = new SpiroGraphView(this);
+        spiroGraphView = new SpiroGraphView(this, getApplicationContext());
         linearLayout.addView(spiroGraphView);
 
         final Spinner spinner = findViewById(R.id.spinner);
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 new SpinnerOnItemSelectedListener(
                         spiroGraphView,
                         this,
+                        getApplicationContext(),
                         dynamicEditTexts,
                         lengthsEditText,
                         angleIncrementsEditTexts
@@ -150,11 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public void submitButtonOnClick(View view) {
         try {
             List<Integer> lengths = lengthsEditText.getLengths();
-            List<Integer> intAngleIncrements = angleIncrementsEditTexts.getLengths();
-            List<Float> angleIncrements = new ArrayList<>();
-            for (int i = 0; i < intAngleIncrements.size(); i++) {
-                angleIncrements.add(intAngleIncrements.get(i) / 800.0f);
-            }
+            List<Integer> angleIncrements = angleIncrementsEditTexts.getLengths();
             spiroGraphView.reset(lengths, angleIncrements);
         } catch (NumberFormatException ex) {
             showEnterValidNumberToast();
@@ -172,13 +174,10 @@ public class MainActivity extends AppCompatActivity {
     public void restartButtonOnClick(View view) {
         try {
             List<Integer> lengths = lengthsEditText.getLengths();
-            List<Integer> intAngleIncrements = angleIncrementsEditTexts.getLengths();
-            List<Float> angleIncrements = new ArrayList<>();
-            for (int i = 0; i < intAngleIncrements.size(); i++) {
-                angleIncrements.add(intAngleIncrements.get(i) / 800.0f);
-            }
+            List<Integer> angleIncrements = angleIncrementsEditTexts.getLengths();
             spiroGraphView.reset(lengths, angleIncrements);
         } catch (NumberFormatException ex) {
+            coordinateDB.clearThenAdd(LengthAngle.getDefault(Line.getNumberOfLines()));
             spiroGraphView.reset(Line.getNumberOfLines());
         }
     }

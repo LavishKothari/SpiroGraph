@@ -13,7 +13,7 @@ public class Line {
 
     private float length;
     private float angle;
-    private float angleIncrement;
+    private int angleIncrement;
 
     private int color;
 
@@ -31,7 +31,7 @@ public class Line {
             int color,
             float length,
             float angle,
-            float angleIncrement
+            Integer angleIncrement
     ) {
         this.startX = startX;
         this.startY = startY;
@@ -45,7 +45,7 @@ public class Line {
 
     public static List<Line> getLines(int screenWidth, int screenHeight, int numberOfLines) {
         List<Integer> lengths = Arrays.asList(200, 200, 50, 70).subList(0, numberOfLines);
-        List<Float> angleIncrements = Arrays.asList(0.05f, 0.12125f, 0.2f, 0.1f);
+        List<Integer> angleIncrements = Arrays.asList(53, 60, 80, 31);
         return getLines(screenWidth, screenHeight, numberOfLines, lengths, angleIncrements);
     }
 
@@ -54,7 +54,7 @@ public class Line {
             int screenHeight,
             int numberOfLines,
             List<Integer> lengths,
-            List<Float> angleIncrements
+            List<Integer> angleIncrements
     ) {
         Line.numberOfLines = numberOfLines;
 
@@ -134,16 +134,20 @@ public class Line {
         );
     }
 
+    private float getSanitizedAngleIncrement(int currentAngleIncrement) {
+        return currentAngleIncrement / 800.0f;
+    }
+
     public Line getRotatedLine(float x, float y) {
         float length = getLength();
         return new Line(
                 x,
                 y,
-                (float) (x + length * Math.cos(angle + angleIncrement)),
-                (float) (y - length * Math.sin(angle + angleIncrement)),
+                (float) (x + length * Math.cos(angle + getSanitizedAngleIncrement(angleIncrement))),
+                (float) (y - length * Math.sin(angle + getSanitizedAngleIncrement(angleIncrement))),
                 this.color,
                 length,
-                angle + angleIncrement,
+                angle + getSanitizedAngleIncrement(angleIncrement),
                 this.angleIncrement
         );
     }
@@ -153,11 +157,11 @@ public class Line {
         return new Line(
                 this.startX,
                 this.startY,
-                (float) (startX + length * Math.cos(angle + angleIncrement)),
-                (float) (startY - length * Math.sin(angle + angleIncrement)),
+                (float) (startX + length * Math.cos(angle + getSanitizedAngleIncrement(angleIncrement))),
+                (float) (startY - length * Math.sin(angle + getSanitizedAngleIncrement(angleIncrement))),
                 this.color,
                 length,
-                angle + angleIncrement,
+                angle + getSanitizedAngleIncrement(angleIncrement),
                 this.angleIncrement
         );
     }

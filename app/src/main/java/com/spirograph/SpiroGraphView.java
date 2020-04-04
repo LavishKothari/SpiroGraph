@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
 
+import com.spirograph.db.CoordinateDB;
+import com.spirograph.favourites.LengthAngle;
 import com.spirograph.shapes.Line;
 import com.spirograph.shapes.Point;
 
@@ -26,9 +28,13 @@ public class SpiroGraphView extends View {
 
     private boolean stop = false;
 
+    private CoordinateDB coordinateDB;
+
     // constructor
-    public SpiroGraphView(Context context) {
+    public SpiroGraphView(Context context, Context applicationContext) {
         super(context);
+
+        coordinateDB = new CoordinateDB(applicationContext);
 
         paint = new Paint();
         paint.setAntiAlias(true);
@@ -37,7 +43,8 @@ public class SpiroGraphView extends View {
         paint.setColor(Color.RED);
         paint.setStrokeWidth(2);
 
-        reset(1);
+        coordinateDB.clearThenAdd(LengthAngle.getDefault(3));
+        reset(3);
 
         this.postInvalidate();
     }
@@ -45,11 +52,19 @@ public class SpiroGraphView extends View {
     public void reset(int n) {
         points = new ArrayList<>();
         stop = false;
-        lines = Line.getLines(utils.getScreenWidth(), utils.getScreenHeight(), n);
+        String lengthAngleString = coordinateDB.getFirstValue();
+        LengthAngle lengthAngle = LengthAngle.getObject(lengthAngleString);
+        lines = Line.getLines(
+                utils.getScreenWidth(),
+                utils.getScreenHeight(),
+                n,
+                lengthAngle.getLengths(),
+                lengthAngle.getAngles()
+        );
         invalidate();
     }
 
-    public void reset(List<Integer> lengths, List<Float> angleIncrements) {
+    public void reset(List<Integer> lengths, List<Integer> angleIncrements) {
         points = new ArrayList<>();
         stop = false;
         lines = Line.getLines(

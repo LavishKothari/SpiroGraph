@@ -19,7 +19,8 @@ public class EditTextCollection {
             int numberOfLines,
             LinearLayout dynamicEditTextsLayout,
             int maxAllowableDigits,
-            int width
+            int width,
+            String text
     ) {
         EditText editText = new EditText(context);
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
@@ -30,6 +31,7 @@ public class EditTextCollection {
         editText.setLayoutParams(p);
         editText.setId(numberOfLines + 1);
         editText.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        editText.setText(text);
 
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(maxAllowableDigits);

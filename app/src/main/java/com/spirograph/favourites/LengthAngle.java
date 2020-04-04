@@ -8,6 +8,21 @@ public class LengthAngle {
 
     private static final String DELIMITER = ",";
 
+    public static String ONE = "50,50";
+    public static String TWO = "50,73,50,23";
+    public static String THREE = "65,140,65,82,23,82";
+    public static String FOUR = "50,73,50,23,82,43,87,60";
+
+    public static String getDefault(int n) {
+        switch (n) {
+            case 1: return ONE;
+            case 2: return TWO;
+            case 3: return THREE;
+            case 4: return FOUR;
+        }
+        return TWO;
+    }
+
     private List<Integer> lengths;
     private List<Integer> angles;
 

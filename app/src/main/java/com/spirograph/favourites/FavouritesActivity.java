@@ -1,12 +1,13 @@
 package com.spirograph.favourites;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.spirograph.db.CoordinateDB;
+import com.spirograph.db.FavouritesDB;
 
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FavouritesActivity extends AppCompatActivity {
 
     FavouritesDB favouritesDB;
+    CoordinateDB coordinateDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class FavouritesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         favouritesDB = new FavouritesDB(getApplicationContext());
+        coordinateDB = new CoordinateDB(getApplicationContext());
+
         LinearLayout parentLinearLayout = new LinearLayout(getApplicationContext());
         parentLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
@@ -51,6 +55,8 @@ public class FavouritesActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                coordinateDB.clear();
+                coordinateDB.add(key);
                 onBackPressed();
             }
         });
