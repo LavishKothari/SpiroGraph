@@ -42,8 +42,17 @@ public class FavouritesActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        Intent refresh = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(refresh);
         finish();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent refresh = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(refresh);
+        finish();
     }
 
     private LinearLayout getInnerLayout(
