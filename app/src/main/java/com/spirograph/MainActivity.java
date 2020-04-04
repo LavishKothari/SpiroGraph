@@ -76,7 +76,13 @@ public class MainActivity extends AppCompatActivity {
                 items
         );
         spinner.setAdapter(adapter);
-        spinner.setSelection(1);
+        if (coordinateDB.isEmpty()) {
+            spinner.setSelection(2);
+        } else {
+            spinner.setSelection(
+                    LengthAngle.getObject(coordinateDB.getFirstValue()).getLengths().size() - 1
+            );
+        }
         spinner.setOnItemSelectedListener(
                 new SpinnerOnItemSelectedListener(
                         spiroGraphView,
@@ -127,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.showFavourite: {
                 Intent intent = new Intent(this, FavouritesActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             }
             case R.id.favouriteIcon: {

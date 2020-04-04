@@ -35,6 +35,10 @@ public class CoordinateDB {
         add(key);
     }
 
+    public boolean isEmpty() {
+        return sharedPreferences.getAll().keySet().isEmpty();
+    }
+
     public String getFirstValue() {
         return sharedPreferences.getAll().keySet().iterator().next();
     }

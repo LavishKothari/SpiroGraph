@@ -24,7 +24,7 @@ public class SpiroGraphView extends View {
 
     private List<Line> lines = new ArrayList<>();
 
-    private List<Point> points = new ArrayList<>();
+    private Path path = new Path();
 
     private boolean stop = false;
 
@@ -43,14 +43,21 @@ public class SpiroGraphView extends View {
         paint.setColor(Color.RED);
         paint.setStrokeWidth(2);
 
-        coordinateDB.clearThenAdd(LengthAngle.getDefault(3));
-        reset(3);
+        if (coordinateDB.isEmpty()) {
+            coordinateDB.clearThenAdd(LengthAngle.getDefault(3));
+        }
+        reset();
 
         this.postInvalidate();
     }
 
+    private void reset() {
+        int n = LengthAngle.getObject(coordinateDB.getFirstValue()).getLengths().size();
+        reset(n);
+    }
+
     public void reset(int n) {
-        points = new ArrayList<>();
+        path = new Path();
         stop = false;
         String lengthAngleString = coordinateDB.getFirstValue();
         LengthAngle lengthAngle = LengthAngle.getObject(lengthAngleString);
@@ -65,7 +72,7 @@ public class SpiroGraphView extends View {
     }
 
     public void reset(List<Integer> lengths, List<Integer> angleIncrements) {
-        points = new ArrayList<>();
+        path = new Path();
         stop = false;
         lines = Line.getLines(
                 utils.getScreenWidth(),
@@ -93,13 +100,13 @@ public class SpiroGraphView extends View {
                 lines.get(Line.getNumberOfLines() - 1).getStopX(),
                 lines.get(Line.getNumberOfLines() - 1).getStopY()
         );
-        points.add(newPoint);
 
-        Path path = new Path();
-        path.moveTo(points.get(0).getX(), points.get(0).getY());
-        for (int i = 1; i < points.size(); i++) {
-            path.lineTo(points.get(i).getX(), points.get(i).getY());
+        if (path.isEmpty()) {
+            path.moveTo(newPoint.getX(), newPoint.getY());
+        } else {
+            path.lineTo(newPoint.getX(), newPoint.getY());
         }
+
         canvas.drawPath(path, paint);
         /*
             stop only after drawing all the points

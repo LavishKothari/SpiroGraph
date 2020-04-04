@@ -1,11 +1,13 @@
 package com.spirograph.favourites;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.spirograph.MainActivity;
 import com.spirograph.db.CoordinateDB;
 import com.spirograph.db.FavouritesDB;
 
@@ -55,9 +57,10 @@ public class FavouritesActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                coordinateDB.clear();
-                coordinateDB.add(key);
-                onBackPressed();
+                coordinateDB.clearThenAdd(key);
+                Intent refresh = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(refresh);
+                finish();
             }
         });
         final Button button = new Button(this);
