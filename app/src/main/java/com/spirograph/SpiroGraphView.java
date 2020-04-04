@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
 
-import com.spirograph.db.CoordinateDB;
+import com.spirograph.db.DBUtils;
 import com.spirograph.favourites.LengthAngle;
 import com.spirograph.shapes.Line;
 import com.spirograph.shapes.Point;
@@ -28,13 +28,9 @@ public class SpiroGraphView extends View {
 
     private boolean stop = false;
 
-    private CoordinateDB coordinateDB;
-
     // constructor
     public SpiroGraphView(Context context, Context applicationContext) {
         super(context);
-
-        coordinateDB = new CoordinateDB(applicationContext);
 
         paint = new Paint();
         paint.setAntiAlias(true);
@@ -43,8 +39,8 @@ public class SpiroGraphView extends View {
         paint.setColor(Color.RED);
         paint.setStrokeWidth(2);
 
-        if (coordinateDB.isEmpty()) {
-            coordinateDB.clearThenAdd(LengthAngle.getDefault(3));
+        if (DBUtils.getCoordinateDB().isEmpty()) {
+            DBUtils.getCoordinateDB().clearThenAdd(LengthAngle.getDefault(3));
         }
         reset();
 
@@ -52,14 +48,14 @@ public class SpiroGraphView extends View {
     }
 
     private void reset() {
-        int n = LengthAngle.getObject(coordinateDB.getFirstValue()).getLengths().size();
+        int n = LengthAngle.getObject(DBUtils.getCoordinateDB().getFirstValue()).getLengths().size();
         reset(n);
     }
 
     public void reset(int n) {
         path = new Path();
         stop = false;
-        String lengthAngleString = coordinateDB.getFirstValue();
+        String lengthAngleString = DBUtils.getCoordinateDB().getFirstValue();
         LengthAngle lengthAngle = LengthAngle.getObject(lengthAngleString);
         lines = Line.getLines(
                 utils.getScreenWidth(),

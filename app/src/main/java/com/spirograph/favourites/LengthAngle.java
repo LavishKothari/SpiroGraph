@@ -15,10 +15,14 @@ public class LengthAngle {
 
     public static String getDefault(int n) {
         switch (n) {
-            case 1: return ONE;
-            case 2: return TWO;
-            case 3: return THREE;
-            case 4: return FOUR;
+            case 1:
+                return ONE;
+            case 2:
+                return TWO;
+            case 3:
+                return THREE;
+            case 4:
+                return FOUR;
         }
         return TWO;
     }
@@ -54,6 +58,9 @@ public class LengthAngle {
         }
         for (Integer i : lengthAngle.angles) {
             stringBuilder.append(i + DELIMITER);
+        }
+        if (stringBuilder.length() == 0) {
+            return "";
         }
         return stringBuilder.subSequence(0, stringBuilder.length() - 1).toString();
     }

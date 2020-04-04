@@ -2,17 +2,14 @@ package com.spirograph.favourites;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.spirograph.MainActivity;
-import com.spirograph.db.CoordinateDB;
-import com.spirograph.db.FavouritesDB;
+import com.spirograph.db.DBUtils;
 
 import java.util.Set;
 
@@ -21,22 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class FavouritesActivity extends AppCompatActivity {
 
-    FavouritesDB favouritesDB;
-    CoordinateDB coordinateDB;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        favouritesDB = new FavouritesDB(getApplicationContext());
-        coordinateDB = new CoordinateDB(getApplicationContext());
-
         LinearLayout parentLinearLayout = new LinearLayout(getApplicationContext());
         parentLinearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        Set<String> values = favouritesDB.getAllValues();
+        Set<String> values = DBUtils.getFavouritesDB().getAllValues();
         for (String s : values) {
             LengthAngle ln = LengthAngle.getObject(s);
             parentLinearLayout.addView(getInnerLayout(ln.toString(), s));
@@ -71,7 +62,7 @@ public class FavouritesActivity extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                coordinateDB.clearThenAdd(key);
+                DBUtils.getCoordinateDB().clearThenAdd(key);
                 Intent refresh = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(refresh);
                 finish();
@@ -89,7 +80,7 @@ public class FavouritesActivity extends AppCompatActivity {
                         .setPositiveButton(
                                 android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int whichButton) {
-                                        favouritesDB.remove(key);
+                                        DBUtils.getFavouritesDB().remove(key);
                                         linearLayout.removeAllViews();
                                     }
                                 }

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.spirograph.db.CoordinateDB;
 import com.spirograph.favourites.LengthAngle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
     private static int numberOfLines = 0;
 
@@ -48,11 +50,12 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         dynamicEditTextsLayout.removeAllViews();
+
+        ((AppCompatActivity)context).invalidateOptionsMenu();
+
         this.lengthsEditTextCollection.clear();
         this.angleIncrementsEditTextCollection.clear();
         int n = position + 1;
-//        coordinateDB.clearThenAdd(LengthAngle.getDefault(n));
-//        spiroGraphView.reset(n);
         numberOfLines = 0;
 
         LinearLayout parentLinearLayout = getLinearLayout(LinearLayout.VERTICAL);
@@ -75,7 +78,10 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
                     lengthsLinearLayout,
                     3,
                     120,
-                    lengthAngle.getLengths().get(i).toString()
+                    lengthAngle.getLengths().get(i).toString(),
+                    spiroGraphView,
+                    lengthsEditTextCollection,
+                    angleIncrementsEditTextCollection
             );
         }
 
@@ -91,14 +97,16 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
                     speedsLinearLayout,
                     2,
                     80,
-                    lengthAngle.getAngles().get(i).toString()
+                    lengthAngle.getAngles().get(i).toString(),
+                    spiroGraphView,
+                    lengthsEditTextCollection,
+                    angleIncrementsEditTextCollection
             );
         }
 
         parentLinearLayout.addView(lengthsLinearLayout);
         parentLinearLayout.addView(speedsLinearLayout);
 
-        //coordinateDB.clearThenAdd(LengthAngle.getDefault(numberOfLines));
         spiroGraphView.reset(numberOfLines);
     }
 
