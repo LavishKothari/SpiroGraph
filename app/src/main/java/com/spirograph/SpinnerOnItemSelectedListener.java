@@ -60,7 +60,11 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
 
         dynamicEditTextsLayout.addView(parentLinearLayout);
 
-        coordinateDB.clearThenAdd(LengthAngle.getDefault(n));
+        if (coordinateDB.isEmpty() ||
+                LengthAngle.getObject(coordinateDB.getFirstValue()).getLengths().size() != n) {
+            coordinateDB.clearThenAdd(LengthAngle.getDefault(n));
+        }
+
         LengthAngle lengthAngle = LengthAngle.getObject(coordinateDB.getFirstValue());
 
         LinearLayout lengthsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
@@ -95,7 +99,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         parentLinearLayout.addView(lengthsLinearLayout);
         parentLinearLayout.addView(speedsLinearLayout);
 
-        coordinateDB.clearThenAdd(LengthAngle.getDefault(numberOfLines));
+        //coordinateDB.clearThenAdd(LengthAngle.getDefault(numberOfLines));
         spiroGraphView.reset(numberOfLines);
     }
 
