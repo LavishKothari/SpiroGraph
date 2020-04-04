@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.spirograph.db.CoordinateDB;
 import com.spirograph.favourites.LengthAngle;
-import com.spirograph.shapes.Line;
 
 public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
     private static int numberOfLines = 0;

@@ -26,17 +26,6 @@
             android:text="Stop" />
 
         <Button
-            android:id="@+id/restartButton"
-            android:layout_width="80dp"
-            android:layout_height="35dp"
-            android:onClick="restartButtonOnClick"
-            android:textStyle="bold"
-            android:background="@drawable/rounded_button"
-            android:layout_marginLeft="15px"
-            android:layout_marginTop="15px"
-            android:text="Restart" />
-
-        <Button
             android:id="@+id/resumeButton"
             android:layout_width="80dp"
             android:layout_height="35dp"
@@ -46,6 +35,17 @@
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
             android:text="Resume" />
+
+        <Button
+            android:id="@+id/restartButton"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:onClick="restartButtonOnClick"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_button"
+            android:layout_marginLeft="15px"
+            android:layout_marginTop="15px"
+            android:text="Restart" />
 
         <Spinner
             android:id="@+id/spinner"

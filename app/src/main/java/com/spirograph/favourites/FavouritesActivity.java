@@ -1,11 +1,14 @@
 package com.spirograph.favourites;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spirograph.MainActivity;
 import com.spirograph.db.CoordinateDB;
@@ -13,6 +16,7 @@ import com.spirograph.db.FavouritesDB;
 
 import java.util.Set;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class FavouritesActivity extends AppCompatActivity {
@@ -63,6 +67,7 @@ public class FavouritesActivity extends AppCompatActivity {
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
         final TextView tv = new TextView(this);
         tv.setText(s);
+        tv.setBackgroundColor(0xFFCCCCCC);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +82,25 @@ public class FavouritesActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favouritesDB.remove(key);
-                linearLayout.removeAllViews();
+                new AlertDialog.Builder(FavouritesActivity.this)
+                        .setTitle("Confirmation Message")
+                        .setMessage("Are you sure you want to delete this SpiroGraph?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(
+                                android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        favouritesDB.remove(key);
+                                        linearLayout.removeAllViews();
+                                    }
+                                }
+                        )
+                        .setNegativeButton(
+                                android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dialog.cancel();
+                                    }
+                                }
+                        ).show();
             }
         });
         linearLayout.addView(tv);

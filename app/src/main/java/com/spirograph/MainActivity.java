@@ -14,12 +14,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.spirograph.db.CoordinateDB;
-import com.spirograph.favourites.FavouritesActivity;
 import com.spirograph.db.FavouritesDB;
+import com.spirograph.favourites.FavouritesActivity;
 import com.spirograph.favourites.LengthAngle;
 import com.spirograph.shapes.Line;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
