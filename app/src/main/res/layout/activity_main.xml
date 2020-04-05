@@ -60,6 +60,8 @@
             android:layout_marginTop="15px"
             android:textStyle="bold"
             style="?android:attr/spinnerItemStyle"
+            android:dropDownVerticalOffset="35dp"
+            android:popupBackground="@drawable/rounded_button"
             android:spinnerMode="dropdown" />
     </LinearLayout>
 

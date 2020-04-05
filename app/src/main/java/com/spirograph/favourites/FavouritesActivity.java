@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.spirograph.MainActivity;
+import com.spirograph.R;
 import com.spirograph.db.DBUtils;
 
 import java.util.Set;
@@ -94,6 +95,8 @@ public class FavouritesActivity extends AppCompatActivity {
                         ).show();
             }
         });
+        button.setBackgroundResource(R.drawable.dynamic_edit_text);
+
         linearLayout.addView(tv);
         linearLayout.addView(button);
         return linearLayout;
