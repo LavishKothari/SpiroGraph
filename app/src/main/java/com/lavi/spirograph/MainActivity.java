@@ -1,7 +1,6 @@
-package com.spirograph;
+package com.lavi.spirograph;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,12 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.spirograph.db.CoordinateDB;
-import com.spirograph.db.DBUtils;
-import com.spirograph.db.FavouritesDB;
-import com.spirograph.favourites.FavouritesActivity;
-import com.spirograph.favourites.LengthAngle;
-import com.spirograph.shapes.Line;
+import com.lavi.spirograph.db.CoordinateDB;
+import com.lavi.spirograph.db.DBUtils;
+import com.lavi.spirograph.db.FavouritesDB;
+import com.lavi.spirograph.favourites.FavouritesActivity;
+import com.lavi.spirograph.favourites.LengthAngle;
+import com.lavi.spirograph.shapes.Line;
 
 import java.util.List;
 

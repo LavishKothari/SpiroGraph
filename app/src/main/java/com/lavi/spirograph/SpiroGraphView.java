@@ -1,4 +1,4 @@
-package com.spirograph;
+package com.lavi.spirograph;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,10 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
 
-import com.spirograph.db.DBUtils;
-import com.spirograph.favourites.LengthAngle;
-import com.spirograph.shapes.Line;
-import com.spirograph.shapes.Point;
+import com.lavi.spirograph.db.DBUtils;
+import com.lavi.spirograph.favourites.LengthAngle;
+import com.lavi.spirograph.shapes.Line;
+import com.lavi.spirograph.shapes.Point;
 
 import java.util.ArrayList;
 import java.util.List;

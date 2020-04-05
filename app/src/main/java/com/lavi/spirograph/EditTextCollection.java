@@ -1,19 +1,17 @@
-package com.spirograph;
+package com.lavi.spirograph;
 
 import android.content.Context;
 import android.text.InputFilter;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
-import com.spirograph.db.DBUtils;
-import com.spirograph.favourites.LengthAngle;
+import com.lavi.spirograph.db.DBUtils;
+import com.lavi.spirograph.favourites.LengthAngle;
 
 import java.util.ArrayList;
 import java.util.List;

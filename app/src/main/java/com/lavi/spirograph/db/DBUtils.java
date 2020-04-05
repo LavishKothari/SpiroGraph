@@ -1,4 +1,4 @@
-package com.spirograph.db;
+package com.lavi.spirograph.db;
 
 public class DBUtils {
     private static CoordinateDB coordinateDB;

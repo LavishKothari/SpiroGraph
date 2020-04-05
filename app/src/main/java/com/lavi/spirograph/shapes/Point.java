@@ -1,4 +1,4 @@
-package com.spirograph.shapes;
+package com.lavi.spirograph.shapes;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

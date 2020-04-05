@@ -1,4 +1,4 @@
-package com.spirograph.favourites;
+package com.lavi.spirograph.favourites;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,9 +13,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.spirograph.MainActivity;
-import com.spirograph.R;
-import com.spirograph.db.DBUtils;
+import com.lavi.spirograph.MainActivity;
+import com.lavi.spirograph.R;
+import com.lavi.spirograph.db.DBUtils;
 
 import java.util.Set;
 

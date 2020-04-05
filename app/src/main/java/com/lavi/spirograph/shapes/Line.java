@@ -1,7 +1,6 @@
-package com.spirograph.shapes;
+package com.lavi.spirograph.shapes;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import java.util.ArrayList;

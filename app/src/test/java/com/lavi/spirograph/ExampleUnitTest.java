@@ -1,4 +1,4 @@
-package com.spirograph;
+package com.lavi.spirograph;
 
 import org.junit.Test;
 

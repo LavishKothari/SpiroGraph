@@ -1,23 +1,18 @@
-package com.spirograph.db;
+package com.lavi.spirograph.db;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.Set;
 
-public class CoordinateDB {
+public class FavouritesDB {
 
     private SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedPreferencesEditor;
 
-    public CoordinateDB(Context context) {
-        sharedPreferences = context.getSharedPreferences("coordinate-db", Context.MODE_PRIVATE);
+    public FavouritesDB(Context context) {
+        sharedPreferences = context.getSharedPreferences("favourite-db", Context.MODE_PRIVATE);
         sharedPreferencesEditor = sharedPreferences.edit();
-    }
-
-    public void clear() {
-        sharedPreferencesEditor.clear();
-        sharedPreferencesEditor.commit();
     }
 
     public void remove(String key) {
@@ -28,19 +23,6 @@ public class CoordinateDB {
     public void add(String key) {
         sharedPreferencesEditor.putString(key, key);
         sharedPreferencesEditor.commit();
-    }
-
-    public void clearThenAdd(String key) {
-        clear();
-        add(key);
-    }
-
-    public boolean isEmpty() {
-        return sharedPreferences.getAll().keySet().isEmpty();
-    }
-
-    public String getFirstValue() {
-        return sharedPreferences.getAll().keySet().iterator().next();
     }
 
     public Set<String> getAllValues() {

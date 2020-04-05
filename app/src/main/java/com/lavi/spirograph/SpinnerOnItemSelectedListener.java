@@ -1,4 +1,4 @@
-package com.spirograph;
+package com.lavi.spirograph;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.spirograph.db.CoordinateDB;
-import com.spirograph.favourites.LengthAngle;
+import com.lavi.spirograph.db.CoordinateDB;
+import com.lavi.spirograph.favourites.LengthAngle;
 
 import androidx.appcompat.app.AppCompatActivity;
 

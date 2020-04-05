@@ -1,4 +1,4 @@
-package com.spirograph;
+package com.lavi.spirograph;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.spirograph", appContext.getPackageName());
+        assertEquals("com.lavi.spirograph", appContext.getPackageName());
     }
 }

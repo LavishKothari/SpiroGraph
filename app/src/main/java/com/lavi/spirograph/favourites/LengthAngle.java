@@ -1,4 +1,4 @@
-package com.spirograph.favourites;
+package com.lavi.spirograph.favourites;
 
 import java.util.ArrayList;
 import java.util.List;

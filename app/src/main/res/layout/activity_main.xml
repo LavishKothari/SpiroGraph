@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.spirograph.MainActivity">
+    tools:context="com.lavi.spirograph.MainActivity">
 
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        tools:context="com.spirograph.MainActivity">
+        tools:context="com.lavi.spirograph.MainActivity">
 
         <Button
             android:id="@+id/stopButton"
@@ -79,7 +79,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/submitButton"
         android:orientation="horizontal"
-        tools:context="com.spirograph.MainActivity"></LinearLayout>
+        tools:context="com.lavi.spirograph.MainActivity"></LinearLayout>
 </LinearLayout>
 
 
