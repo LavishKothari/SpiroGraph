@@ -43,12 +43,6 @@ public class Line {
         this.angle = angle;
     }
 
-    public static List<Line> getLines(int screenWidth, int screenHeight, int numberOfLines) {
-        List<Integer> lengths = Arrays.asList(200, 200, 50, 70).subList(0, numberOfLines);
-        List<Integer> angleIncrements = Arrays.asList(53, 60, 80, 31);
-        return getLines(screenWidth, screenHeight, numberOfLines, lengths, angleIncrements);
-    }
-
     public static List<Line> getLines(
             int screenWidth,
             int screenHeight,
@@ -58,7 +52,12 @@ public class Line {
     ) {
         Line.numberOfLines = numberOfLines;
 
-        List<Integer> color = Arrays.asList(Color.CYAN, Color.GREEN, Color.BLUE, Color.MAGENTA);
+        List<Integer> color = Arrays.asList(
+                0xFFFF00FF,
+                0xFF005500,
+                0xFF0000FF,
+                0xFF009999
+        );
 
         List<Line> lines = new ArrayList<>();
         int currentDistance = 0;

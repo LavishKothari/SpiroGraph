@@ -2,9 +2,11 @@ package com.spirograph.favourites;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -69,8 +71,8 @@ public class FavouritesActivity extends AppCompatActivity {
                 finish();
             }
         });
-        final Button button = new Button(this);
-        button.setText("Delete");
+        final ImageButton button = new ImageButton(this);
+        button.setImageResource(R.drawable.ic_delete_black_30dp);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +97,13 @@ public class FavouritesActivity extends AppCompatActivity {
                         ).show();
             }
         });
-        button.setBackgroundResource(R.drawable.dynamic_edit_text);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(0, 0, 0, 0);
+        button.setLayoutParams(params);
+        button.setBackgroundColor(Color.TRANSPARENT);
 
         linearLayout.addView(tv);
         linearLayout.addView(button);

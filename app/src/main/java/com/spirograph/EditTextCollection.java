@@ -40,22 +40,21 @@ public class EditTextCollection {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        p.setMargins(0, 0, 0, 0);
+        p.setMargins(4, 4, 4, 4);
         editText.setLayoutParams(p);
+
         editText.setId(numberOfLines + 1);
         editText.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         editText.setText(text);
+        editText.setTextSize(15);
 
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(maxAllowableDigits);
         editText.setFilters(filterArray);
 
         editText.setBackgroundResource(R.drawable.dynamic_edit_text);
-        editText.setPadding(15, 15,15,15);
+        editText.setPadding(10, 10, 10, 10);
 
-        TableLayout.LayoutParams params = new TableLayout.LayoutParams();
-        params.setMargins(15, 15, 15, 15);
-        editText.setLayoutParams(params);
 
         editText.setOnKeyListener(new EditText.OnKeyListener() {
             @Override

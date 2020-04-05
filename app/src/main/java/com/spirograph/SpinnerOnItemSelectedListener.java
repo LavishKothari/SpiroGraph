@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -60,6 +61,12 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         numberOfLines = 0;
 
         LinearLayout parentLinearLayout = getLinearLayout(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        p.setMargins(15, 0, 0, 0);
+        parentLinearLayout.setLayoutParams(p);
 
         dynamicEditTextsLayout.addView(parentLinearLayout);
 
@@ -71,7 +78,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         LengthAngle lengthAngle = LengthAngle.getObject(coordinateDB.getFirstValue());
 
         LinearLayout lengthsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
-        addTextView("  Lengths (50 to 150): ", lengthsLinearLayout);
+        addTextView("Lengths (50 to 150):", lengthsLinearLayout);
         for (int i = 0; i < n; i++) {
             numberOfLines = lengthsEditTextCollection.addEditText(
                     context,
@@ -88,7 +95,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
 
         LinearLayout speedsLinearLayout = getLinearLayout(LinearLayout.HORIZONTAL);
         addTextView(
-                "  Speeds (0 to 99): ",
+                "Speeds (0 to 99):",
                 speedsLinearLayout
         );
         for (int i = 0; i < n; i++) {
@@ -145,7 +152,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
         textView.setText(text);
         linearLayout.addView(textView);
         textView.setTextColor(Color.BLACK);
-        textView.setTypeface(null, Typeface.BOLD);
+        textView.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
         return textView;
     }
 

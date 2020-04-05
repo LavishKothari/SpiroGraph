@@ -24,7 +24,7 @@
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
             android:layout_marginBottom="10px"
-            android:text="Stop" />
+            android:text="Stop"/>
 
         <Button
             android:id="@+id/resumeButton"
@@ -36,7 +36,7 @@
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
             android:layout_marginBottom="10px"
-            android:text="Resume" />
+            android:text="Resume"/>
 
         <Button
             android:id="@+id/restartButton"
@@ -48,7 +48,7 @@
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
             android:layout_marginBottom="10px"
-            android:text="Restart" />
+            android:text="Restart"/>
 
         <Spinner
             android:id="@+id/spinner"
@@ -62,7 +62,7 @@
             style="?android:attr/spinnerItemStyle"
             android:dropDownVerticalOffset="35dp"
             android:popupBackground="@drawable/rounded_button"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"/>
     </LinearLayout>
 
     <LinearLayout

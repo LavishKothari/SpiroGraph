@@ -87,6 +87,13 @@ public class LengthAngle {
 
     @Override
     public String toString() {
-        return "Lengths: " + lengths + ", Speed: " + angles;
+        String lStr = "  Lengths: " + lengths;
+        String sStr = "  Speeds: " + angles;
+        String repeated = new String(new char[30 - lStr.length()]).replace("\0", " ");
+        System.out.println(lStr.length());
+        System.out.println(sStr.length());
+        System.out.println(repeated.length());
+        System.out.println("----------------------------");
+        return lStr + repeated + '\n' + sStr;
     }
 }
