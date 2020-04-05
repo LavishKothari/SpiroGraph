@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         linearLayout.addView(spiroGraphView);
 
         final Spinner spinner = findViewById(R.id.spinner);
+        // \u25Bc
         String[] items = new String[]{"1", "2", "3", "4"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -80,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
             spinner.setSelection(2);
         } else {
             spinner.setSelection(
-                    LengthAngle.getObject(DBUtils.getCoordinateDB().getFirstValue()).getLengths().size() - 1
+                    LengthAngle.getObject(
+                            DBUtils.getCoordinateDB().getFirstValue()
+                    ).getLengths().size() - 1
             );
         }
         spinner.setOnItemSelectedListener(
