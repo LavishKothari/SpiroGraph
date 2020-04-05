@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spirograph.MainActivity;
 import com.spirograph.R;
@@ -68,7 +69,7 @@ public class FavouritesActivity extends AppCompatActivity {
 
         TextView textView = getTextView(s, key);
         ImageButton deleteButton = getDeleteButton(linearLayout, key);
-        ImageButton shareButton = getShareButton(linearLayout, key);
+        ImageButton shareButton = getShareButton(s, key);
 
         linearLayout.addView(textView);
         linearLayout.addView(deleteButton);
@@ -101,7 +102,7 @@ public class FavouritesActivity extends AppCompatActivity {
         return textView;
     }
 
-    private ImageButton getShareButton(final LinearLayout linearLayout, final String key) {
+    private ImageButton getShareButton(final String s, final String key) {
         final ImageButton shareButton = new ImageButton(this);
         shareButton.setImageResource(R.drawable.ic_share_green_24dp);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -113,7 +114,20 @@ public class FavouritesActivity extends AppCompatActivity {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,
+                            "Check out this app on Play Store: SPIROGRAPH\n" + s
+                    );
+                    sendIntent.setType("text/plain");
+                    startActivity(sendIntent);
+                } catch (Exception e) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Message sending failed!",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
             }
         });
 

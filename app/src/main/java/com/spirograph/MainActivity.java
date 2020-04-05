@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         linearLayout.addView(spiroGraphView);
 
         final Spinner spinner = findViewById(R.id.spinner);
-        // \u25Bc
         String[] items = new String[]{"1", "2", "3", "4"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                     menuItem.setIcon(R.drawable.ic_star_white_30dp);
                 }
             } catch (Exception e) {
-                System.out.println("excee " + e);
             }
         }
         return super.onPrepareOptionsMenu(menu);
@@ -139,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT,
-                            "Check out this app on playstore: SPIROGRAPH"
+                            "Check out this app on Play Store: SPIROGRAPH"
                     );
                     sendIntent.setType("text/plain");
                     startActivity(sendIntent);
