@@ -23,6 +23,7 @@
             android:background="@drawable/rounded_button"
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
+            android:layout_marginBottom="10px"
             android:text="Stop" />
 
         <Button
@@ -34,6 +35,7 @@
             android:background="@drawable/rounded_button"
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
+            android:layout_marginBottom="10px"
             android:text="Resume" />
 
         <Button
@@ -45,6 +47,7 @@
             android:background="@drawable/rounded_button"
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
+            android:layout_marginBottom="10px"
             android:text="Restart" />
 
         <Spinner
@@ -52,6 +55,7 @@
             android:layout_width="60dp"
             android:layout_height="35dp"
             android:background="@drawable/bg_spinner"
+            android:singleLine="true"
             android:layout_marginLeft="15px"
             android:layout_marginTop="15px"
             android:textStyle="bold"

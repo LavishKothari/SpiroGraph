@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.spirograph.db.CoordinateDB;
@@ -96,7 +97,7 @@ public class SpinnerOnItemSelectedListener implements AdapterView.OnItemSelected
                     numberOfLines,
                     speedsLinearLayout,
                     2,
-                    80,
+                    90,
                     lengthAngle.getAngles().get(i).toString(),
                     spiroGraphView,
                     lengthsEditTextCollection,

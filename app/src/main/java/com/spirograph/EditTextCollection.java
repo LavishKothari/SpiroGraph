@@ -2,12 +2,14 @@ package com.spirograph;
 
 import android.content.Context;
 import android.text.InputFilter;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.spirograph.db.DBUtils;
@@ -48,11 +50,18 @@ public class EditTextCollection {
         filterArray[0] = new InputFilter.LengthFilter(maxAllowableDigits);
         editText.setFilters(filterArray);
 
+        editText.setBackgroundResource(R.drawable.dynamic_edit_text);
+        editText.setPadding(15, 15,15,15);
+
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams();
+        params.setMargins(15, 15, 15, 15);
+        editText.setLayoutParams(params);
+
         editText.setOnKeyListener(new EditText.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 try {
-                    ((AppCompatActivity)context).invalidateOptionsMenu();
+                    ((AppCompatActivity) context).invalidateOptionsMenu();
                     DBUtils.getCoordinateDB().clearThenAdd(
                             LengthAngle.getStringRepresentation(
                                     new LengthAngle(etc1.getLengths(), etc2.getLengths())
