@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.spirograph.MainActivity;
@@ -35,7 +37,10 @@ public class FavouritesActivity extends AppCompatActivity {
             LengthAngle ln = LengthAngle.getObject(s);
             parentLinearLayout.addView(getInnerLayout(ln.toString(), s));
         }
-        setContentView(parentLinearLayout);
+
+        ScrollView scrollView = new ScrollView(getApplicationContext());
+        scrollView.addView(parentLinearLayout);
+        setContentView(scrollView);
     }
 
     @Override
@@ -59,10 +64,32 @@ public class FavouritesActivity extends AppCompatActivity {
     ) {
         final LinearLayout linearLayout = new LinearLayout(getApplicationContext());
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        final TextView tv = new TextView(this);
-        tv.setText(s);
-        tv.setBackgroundColor(0xFFCCCCCC);
-        tv.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setBackgroundResource(R.drawable.fav_tv_border);
+
+        TextView textView = getTextView(s, key);
+        ImageButton deleteButton = getDeleteButton(linearLayout, key);
+        ImageButton shareButton = getShareButton(linearLayout, key);
+
+        linearLayout.addView(textView);
+        linearLayout.addView(deleteButton);
+        linearLayout.addView(shareButton);
+
+        return linearLayout;
+    }
+
+    private TextView getTextView(String text, final String key) {
+        final TextView textView = new TextView(this);
+        textView.setText(text);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(1, 18, 1, 1);
+        textView.setLayoutParams(params);
+
+        textView.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DBUtils.getCoordinateDB().clearThenAdd(key);
@@ -71,9 +98,33 @@ public class FavouritesActivity extends AppCompatActivity {
                 finish();
             }
         });
-        final ImageButton button = new ImageButton(this);
-        button.setImageResource(R.drawable.ic_delete_black_30dp);
-        button.setOnClickListener(new View.OnClickListener() {
+        return textView;
+    }
+
+    private ImageButton getShareButton(final LinearLayout linearLayout, final String key) {
+        final ImageButton shareButton = new ImageButton(this);
+        shareButton.setImageResource(R.drawable.ic_share_green_24dp);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(20, 15, 1, 1);
+        shareButton.setLayoutParams(params);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        shareButton.setBackgroundColor(Color.TRANSPARENT);
+        return shareButton;
+    }
+
+    private ImageButton getDeleteButton(final LinearLayout linearLayout, final String key) {
+        final ImageButton deleteButton = new ImageButton(this);
+        deleteButton.setImageResource(R.drawable.ic_delete_black_30dp);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(FavouritesActivity.this)
@@ -97,16 +148,9 @@ public class FavouritesActivity extends AppCompatActivity {
                         ).show();
             }
         });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(0, 0, 0, 0);
-        button.setLayoutParams(params);
-        button.setBackgroundColor(Color.TRANSPARENT);
 
-        linearLayout.addView(tv);
-        linearLayout.addView(button);
-        return linearLayout;
+        deleteButton.setBackgroundColor(Color.TRANSPARENT);
+        return deleteButton;
     }
+
 }
